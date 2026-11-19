@@ -12,7 +12,7 @@ for (const route of ['', 'map/', 'coins/', 'create/', 'claim/']) {
   if (html.includes('A3roW2EvSxwH4VrXpvXV8GwtrHPTWXS5ixwAXCaipump') || html.includes('$SIX') || html.includes('Six: launch')) throw new Error(`Old branding in ${route || '/'}`);
   if (!html.includes('/Leonmint/_next/static/')) throw new Error(`Broken Pages asset path in ${route || '/'}`);
 }
-const logo = path.join(site, 'logo.png');
+const logo = path.join(site, 'leonmint-logo.png');
 if (!fs.existsSync(logo) || fs.statSync(logo).size < 100000) throw new Error('Leonmint logo is missing');
 const config = fs.readFileSync(path.join(site, '_next', 'static', 'chunks', '1d8af9x76_wml.js'), 'utf8');
 if (!config.includes('name:"Leonmint",ticker:"$LEOMINT"') || !config.includes('ca:"TBA"')) throw new Error('Live brand config is outdated');
