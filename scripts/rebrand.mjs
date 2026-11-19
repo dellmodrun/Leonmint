@@ -21,7 +21,7 @@ export function applyRebrand(site) {
         .replaceAll('x:"https://x.com/sixdotfun"', 'x:null')
         .replaceAll('domain:"sixpad.fun"', 'domain:"Leonmint"')
         .replaceAll('https://sixpad.fun/opengraph-image?1d3018d5710fd59d', SHARE_IMAGE)
-        .replaceAll('logo:"logo.png"', 'logo:"leonmint-logo.png"')
+        .replaceAll('logo:"logo.png"', 'logo:"Leonmint/leonmint-logo.png"')
         .replaceAll('/logo.png', '/leonmint-logo.png');
       if (entry.name.endsWith('.css')) next += '\n.sx-bar-ca .ca button,.hm-six-ca .ca button,.hm-six-buy,.cn-six .sx-ca,.cn-six .hm-buy{display:none!important}.cn-six .cn-act:before{content:"CA TBA";color:#aaa;font:600 12px Arial,sans-serif}\n';
       if (next !== source) fs.writeFileSync(target, next);

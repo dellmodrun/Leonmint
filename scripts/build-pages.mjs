@@ -14,7 +14,7 @@ fs.rmSync(output, { recursive: true, force: true });
 fs.cpSync(source, output, { recursive: true });
 applyRebrand(output);
 
-const localRoot = /(["'`])(\/(?:_next|maplibre|leonmint-logo\.png|logo\.png|api|map|coins|create|claim))(?=[/?#"'`])/g;
+const localRoot = /(["'`])(\/(?:_next|maplibre|leonmint-logo\.png|logo\.png|api|map|coins|create|claim))(?=[/?#"'`\\])/g;
 const cssRoot = /url\((\/(?:_next|maplibre|logo\.png))(?=[/?#)])/g;
 
 function walk(directory) {
