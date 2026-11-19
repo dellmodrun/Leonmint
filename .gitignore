@@ -4,6 +4,7 @@ _preview/
 qa-pages-*.png
 qa-rebrand-*.png
 qa-landmark-*.png
+qa-x-header-*.png
 .qa-chrome*/
 .DS_Store
 Thumbs.db
