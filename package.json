@@ -6,7 +6,8 @@
   "scripts": {
     "mirror": "node scripts/mirror.mjs",
     "start": "node server.mjs",
-    "check": "node scripts/check.mjs"
+    "check": "node scripts/check.mjs",
+    "build:pages": "node scripts/build-pages.mjs"
   },
   "engines": {
     "node": ">=18"
