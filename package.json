@@ -1,0 +1,14 @@
+{
+  "name": "sixpad-local-mirror",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "mirror": "node scripts/mirror.mjs",
+    "start": "node server.mjs",
+    "check": "node scripts/check.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
