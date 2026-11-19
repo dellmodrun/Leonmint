@@ -9,7 +9,8 @@
     "start:mirror": "node server.mjs",
     "check": "node scripts/check.mjs",
     "build:pages": "node scripts/build-pages.mjs",
-    "check:pages": "node scripts/check-pages.mjs"
+    "check:pages": "node scripts/check-pages.mjs",
+    "update:ca": "node scripts/update-ca.mjs"
   },
   "engines": {
     "node": ">=18"

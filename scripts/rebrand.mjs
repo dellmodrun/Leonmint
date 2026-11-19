@@ -4,6 +4,10 @@ import { fileURLToPath } from 'node:url';
 
 const OLD_CA = 'A3roW2EvSxwH4VrXpvXV8GwtrHPTWXS5ixwAXCaipump';
 const SHARE_IMAGE = 'https://dellmodrun.github.io/Leonmint/leonmint-logo.png';
+const CA_ENDPOINT = 'https://snwthyespgghvvlktyyu.supabase.co/rest/v1/leonmint_ca?slug=eq.official&select=mint';
+const CA_PUBLIC_KEY = 'sb_publishable_lok_cbkXwfsPKEpOTTCl4Q_6aqpNf0v';
+const STATIC_COIN_FETCH = 'fetch("/api/coin",{cache:"no-store"}).then(e=>e.json())';
+const LIVE_COIN_FETCH = `fetch("${CA_ENDPOINT}",{cache:"no-store",headers:{apikey:"${CA_PUBLIC_KEY}"}}).then(e=>{if(!e.ok)throw Error("CA request failed");return e.json()}).then(e=>{let a=e?.[0]?.mint||null;document.documentElement.dataset.leonmintCa=a?"live":"tba";return{ca:a||"TBA",buyUrl:a?"https://pump.fun/coin/"+a:"#"}})`;
 
 export function applyRebrand(site) {
   function visit(directory) {
@@ -24,7 +28,12 @@ export function applyRebrand(site) {
         .replaceAll('https://sixpad.fun/opengraph-image?1d3018d5710fd59d', SHARE_IMAGE)
         .replaceAll('logo:"logo.png"', 'logo:"Leonmint/leonmint-logo.png"')
         .replaceAll('/logo.png', '/leonmint-logo.png');
-      if (entry.name.endsWith('.css')) next += '\n.sx-bar-ca .ca button,.hm-six-ca .ca button,.hm-six-buy,.cn-six .sx-ca,.cn-six .hm-buy{display:none!important}.cn-six .cn-act:before{content:"CA TBA";color:#aaa;font:600 12px Arial,sans-serif}.lm-x-button{width:36px;height:36px;flex:0 0 36px;display:grid;place-items:center;border:1px solid #ffffff30;border-radius:10px;background:#ffffff0c;color:#fff;transition:background .18s,color .18s,transform .18s}.lm-x-button svg{width:18px;height:18px}.lm-x-button:hover{background:#fff;color:#080b0d;transform:translateY(-1px)}.lm-x-button:focus-visible{outline:2px solid #13e0d3;outline-offset:2px}@media(max-width:640px){.lm-x-button{width:32px;height:32px;flex-basis:32px}.sx-bar{gap:8px}}\n';
+      if (next.includes(STATIC_COIN_FETCH)) {
+        next = next.replaceAll(STATIC_COIN_FETCH, LIVE_COIN_FETCH)
+          .replaceAll('c=r.ca?null:setTimeout(h,5e3)', 'c=setTimeout(h,1e3)')
+          .replaceAll('h=r.ca?null:setTimeout(c,5e3)', 'h=setTimeout(c,1e3)');
+      }
+      if (entry.name.endsWith('.css')) next += '\nhtml:not([data-leonmint-ca="live"]) .sx-bar-ca .ca button,html:not([data-leonmint-ca="live"]) .hm-six-ca .ca button,html:not([data-leonmint-ca="live"]) .hm-six-buy,html:not([data-leonmint-ca="live"]) .cn-six .sx-ca,html:not([data-leonmint-ca="live"]) .cn-six .hm-buy{display:none!important}html:not([data-leonmint-ca="live"]) .cn-six .cn-act:before{content:"CA TBA";color:#aaa;font:600 12px Arial,sans-serif}.lm-x-button{width:36px;height:36px;flex:0 0 36px;display:grid;place-items:center;border:1px solid #ffffff30;border-radius:10px;background:#ffffff0c;color:#fff;transition:background .18s,color .18s,transform .18s}.lm-x-button svg{width:18px;height:18px}.lm-x-button:hover{background:#fff;color:#080b0d;transform:translateY(-1px)}.lm-x-button:focus-visible{outline:2px solid #13e0d3;outline-offset:2px}@media(max-width:640px){.lm-x-button{width:32px;height:32px;flex-basis:32px}.sx-bar{gap:8px}}\n';
       if (entry.name.endsWith('.html')) next = next.replace('</body>', '<script src="/Leonmint/leonmint-social.js" defer></script></body>');
       if (next !== source) fs.writeFileSync(target, next);
     }

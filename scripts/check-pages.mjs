@@ -20,6 +20,11 @@ const config = fs.readFileSync(path.join(site, '_next', 'static', 'chunks', '1d8
 if (!config.includes('name:"Leonmint",ticker:"$LEOMINT"') || !config.includes('ca:"TBA"')) throw new Error('Live brand config is outdated');
 if (!config.includes('x:"https://x.com/leonmintpad"')) throw new Error('Leonmint X URL is missing');
 if (!config.includes('logo:"Leonmint/leonmint-logo.png"')) throw new Error('Dynamic map landmark logo path is wrong');
+for (const chunk of ['1d8af9x76_wml.js', '3t0-wjx7jlz0_.js']) {
+  const source = fs.readFileSync(path.join(site, '_next', 'static', 'chunks', chunk), 'utf8');
+  if (!source.includes('rest/v1/leonmint_ca?slug=eq.official&select=mint') || source.includes('fetch("/Leonmint/api/coin"')) throw new Error(`Live CA source missing in ${chunk}`);
+  if (!source.includes('setTimeout(h,1e3)') && !source.includes('setTimeout(c,1e3)')) throw new Error(`One-second CA polling missing in ${chunk}`);
+}
 if (config.includes('sixdotfun') || config.includes('A3roW2EvSxwH4VrXpvXV8GwtrHPTWXS5ixwAXCaipump')) throw new Error('Old account or CA remains');
 const coin = JSON.parse(fs.readFileSync(path.join(site, 'api', 'coin'), 'utf8'));
 if (coin.ca !== 'TBA' || coin.buyUrl !== '#') throw new Error('Prelaunch CA state is wrong');
