@@ -10,16 +10,16 @@ for (const route of ['', 'map/', 'coins/', 'create/', 'claim/']) {
   const html = fs.readFileSync(file, 'utf8');
   if (!html.includes('Leonmint') || !html.includes('TBA')) throw new Error(`Leonmint or TBA missing from ${route || '/'}`);
   if (html.includes('A3roW2EvSxwH4VrXpvXV8GwtrHPTWXS5ixwAXCaipump') || html.includes('$SIX') || html.includes('Six: launch')) throw new Error(`Old branding in ${route || '/'}`);
-  if (html.includes(String.raw`href\":\"/leonmint-logo.png`)) throw new Error(`Unprefixed favicon in Next.js payload: ${route || '/'}`);
-  if (!html.includes('/Leonmint/_next/static/')) throw new Error(`Broken Pages asset path in ${route || '/'}`);
-  if (!html.includes('/Leonmint/leonmint-social.js')) throw new Error(`X button script missing in ${route || '/'}`);
+  if (!html.includes('/_next/static/')) throw new Error(`Broken Pages asset path in ${route || '/'}`);
+  if (!html.includes('/leonmint-social.js')) throw new Error(`X button script missing in ${route || '/'}`);
+  if (html.includes('/Leonmint/_next/') || html.includes('/Leonmint/leonmint-social.js')) throw new Error(`Old project path in ${route || '/'}`);
 }
 const logo = path.join(site, 'leonmint-logo.png');
 if (!fs.existsSync(logo) || fs.statSync(logo).size < 100000) throw new Error('Leonmint logo is missing');
 const config = fs.readFileSync(path.join(site, '_next', 'static', 'chunks', '1d8af9x76_wml.js'), 'utf8');
 if (!config.includes('name:"Leonmint",ticker:"$LEOMINT"') || !config.includes('ca:"TBA"')) throw new Error('Live brand config is outdated');
 if (!config.includes('x:"https://x.com/leonmintpad"')) throw new Error('Leonmint X URL is missing');
-if (!config.includes('logo:"Leonmint/leonmint-logo.png"')) throw new Error('Dynamic map landmark logo path is wrong');
+if (!config.includes('logo:"leonmint-logo.png"')) throw new Error('Dynamic map landmark logo path is wrong');
 for (const chunk of ['1d8af9x76_wml.js', '3t0-wjx7jlz0_.js']) {
   const source = fs.readFileSync(path.join(site, '_next', 'static', 'chunks', chunk), 'utf8');
   if (!source.includes('rest/v1/leonmint_ca?slug=eq.official&select=mint') || source.includes('fetch("/Leonmint/api/coin"')) throw new Error(`Live CA source missing in ${chunk}`);

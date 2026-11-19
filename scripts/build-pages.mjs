@@ -6,8 +6,7 @@ import { applyRebrand } from './rebrand.mjs';
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const source = path.join(root, 'mirror');
 const output = path.join(root, '_site');
-const repository = process.env.GITHUB_REPOSITORY?.split('/').at(-1) || 'Leonmint';
-const base = `/${repository}`;
+const base = '';
 
 if (!fs.existsSync(path.join(source, 'index.html'))) throw new Error('Missing mirrored homepage');
 fs.rmSync(output, { recursive: true, force: true });
@@ -37,6 +36,7 @@ function walk(directory) {
 }
 walk(output);
 fs.writeFileSync(path.join(output, '.nojekyll'), '');
+fs.writeFileSync(path.join(output, 'CNAME'), 'leonmint.fun\n');
 fs.copyFileSync(path.join(output, 'index.html'), path.join(output, '404.html'));
 for (const route of ['map', 'coins', 'create', 'claim']) {
   if (!fs.existsSync(path.join(output, route, 'index.html'))) throw new Error(`Missing route: ${route}`);

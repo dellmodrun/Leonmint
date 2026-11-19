@@ -3,7 +3,7 @@ import json
 import time
 
 MINT = '11111111111111111111111111111111'
-URL = 'http://127.0.0.1:4176/Leonmint/'
+URL = 'http://127.0.0.1:4176/'
 
 with sync_playwright() as playwright:
     browser = playwright.chromium.launch(headless=True, executable_path=r'C:\Program Files\Google\Chrome\Application\chrome.exe')

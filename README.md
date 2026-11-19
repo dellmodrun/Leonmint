@@ -11,7 +11,7 @@ Leonmint is a Florida business map and coin launch concept. This repository publ
 
 ## Preview and deployment
 
-`npm start` serves the Leonmint preview at <http://127.0.0.1:4176/Leonmint/>. `npm run build:pages` generates `_site/` with the Leonmint name, logo, prelaunch token state, and GitHub Pages paths. `npm run check:pages` verifies the output. Pushing `main` deploys it to <https://dellmodrun.github.io/Leonmint/>.
+`npm start` serves the Leonmint preview at <http://127.0.0.1:4176/>. `npm run build:pages` generates `_site/` with the Leonmint name, logo, prelaunch token state, and custom-domain root paths. `npm run check:pages` verifies the output. Pushing `main` deploys it to <https://leonmint.fun/>.
 
 The captured pages are `/`, `/map/`, `/coins/`, `/create/`, and `/claim/`. The repository retains the original public mirror as input; `scripts/rebrand.mjs` applies the Leonmint presentation during each Pages build. The listed coins and map data are inherited from that mirror and are not new Leonmint launches.
 

@@ -35,7 +35,8 @@ jobs:
           test -f _site/coins/index.html
           test -f _site/create/index.html
           test -f _site/claim/index.html
-          grep -q '/Leonmint/_next/static/' _site/index.html
+          grep -q '/_next/static/' _site/index.html
+          grep -qx 'leonmint.fun' _site/CNAME
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:
