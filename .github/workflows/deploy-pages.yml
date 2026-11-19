@@ -29,6 +29,7 @@ jobs:
         run: npm run build:pages
       - name: Verify pages and asset paths
         run: |
+          npm run check:pages
           test -f _site/.nojekyll
           test -f _site/map/index.html
           test -f _site/coins/index.html

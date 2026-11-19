@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { applyRebrand } from './rebrand.mjs';
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const source = path.join(root, 'mirror');
@@ -11,6 +12,7 @@ const base = `/${repository}`;
 if (!fs.existsSync(path.join(source, 'index.html'))) throw new Error('Missing mirrored homepage');
 fs.rmSync(output, { recursive: true, force: true });
 fs.cpSync(source, output, { recursive: true });
+applyRebrand(output);
 
 const localRoot = /(["'`])(\/(?:_next|maplibre|logo\.png|api|map|coins|create|claim))(?=[/?#"'`])/g;
 const cssRoot = /url\((\/(?:_next|maplibre|logo\.png))(?=[/?#)])/g;

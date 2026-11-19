@@ -2,6 +2,7 @@ node_modules/
 _site/
 _preview/
 qa-pages-*.png
+qa-rebrand-*.png
 .qa-chrome*/
 .DS_Store
 Thumbs.db

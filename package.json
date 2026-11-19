@@ -1,13 +1,15 @@
 {
-  "name": "sixpad-local-mirror",
+  "name": "leonmint-frontend",
   "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
     "mirror": "node scripts/mirror.mjs",
-    "start": "node server.mjs",
+    "start": "npm run build:pages && node scripts/serve-pages.mjs",
+    "start:mirror": "node server.mjs",
     "check": "node scripts/check.mjs",
-    "build:pages": "node scripts/build-pages.mjs"
+    "build:pages": "node scripts/build-pages.mjs",
+    "check:pages": "node scripts/check-pages.mjs"
   },
   "engines": {
     "node": ">=18"

@@ -1,34 +1,18 @@
-# Sixpad 本地前端镜像
+# Leonmint frontend
 
-这是 `https://sixpad.fun/` 的本地只读前端镜像，包含公开页面：
+Leonmint is a Florida business map and coin launch concept. This repository publishes a rebranded, read-only capture of the public frontend to GitHub Pages.
 
-- `/` 首页
-- `/map` 地图（包括 `launch`、地区和商户查询参数）
-- `/coins` 币种列表
-- `/create` 发行页面
-- `/claim` 认领页面
+## Current brand
 
-## 启动
+- Project: Leonmint
+- Token ticker: `$LEOMINT`
+- Official contract address: TBA
+- Logo: `mirror/logo.png`, copied from the supplied Leonmint artwork
 
-Windows 直接双击 `start.bat`，或在此目录执行：
+## Preview and deployment
 
-```powershell
-npm start
-```
+`npm start` serves the Leonmint preview at <http://127.0.0.1:4176/Leonmint/>. `npm run build:pages` generates `_site/` with the Leonmint name, logo, prelaunch token state, and GitHub Pages paths. `npm run check:pages` verifies the output. Pushing `main` deploys it to <https://dellmodrun.github.io/Leonmint/>.
 
-浏览器打开 <http://127.0.0.1:4175>。
+The captured pages are `/`, `/map/`, `/coins/`, `/create/`, and `/claim/`. The repository retains the original public mirror as input; `scripts/rebrand.mjs` applies the Leonmint presentation during each Pages build. The listed coins and map data are inherited from that mirror and are not new Leonmint launches.
 
-## 工作方式
-
-页面、样式、脚本、字体和图片已经预先镜像到 `mirror/`。如果某个公开 GET 资源未预取到，本地服务器会从原站只读获取并缓存。非 GET/HEAD 请求一律返回 403，因此发行币、认领费用、钱包签名等真实写操作不会转发到原站。
-
-这是一份公开前端的运行镜像，不包含原站未公开的源码、数据库、密钥、钱包权限或后端服务。动态行情等实时信息在联网时由原站公开接口提供；完全离线时显示已镜像的页面结构和静态信息。
-
-## 刷新镜像
-
-```powershell
-npm run mirror
-npm run check
-```
-
-需要 Node.js 18 或更高版本，无第三方 npm 依赖。
+This frontend does not include the original site's unpublished backend, database, wallet permissions, or live write operations. `npm run start:mirror` runs the raw captured mirror for reference; its write guard returns HTTP 403.
